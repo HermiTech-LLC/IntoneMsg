@@ -5,7 +5,6 @@ import typer
 def generate_tone(
     message: str, 
     filename: str = 'embedded_tone.wav', 
-    duration: float = 5.0, 
     sample_rate: int = 44100, 
     f0: float = 440.0, 
     f1: float = 880.0
@@ -16,7 +15,6 @@ def generate_tone(
     Parameters:
     - message: The message to embed in the tone.
     - filename: The name of the output WAV file.
-    - duration: Duration of the tone in seconds.
     - sample_rate: Sampling rate of the audio signal.
     - f0: Frequency for binary '0'.
     - f1: Frequency for binary '1'.
@@ -24,9 +22,6 @@ def generate_tone(
 
     if not message:
         raise ValueError("Message cannot be empty.")
-
-    if not isinstance(duration, (int, float)) or duration <= 0:
-        raise ValueError("Duration must be a positive number.")
 
     if not isinstance(sample_rate, int) or sample_rate <= 0:
         raise ValueError("Sample rate must be a positive integer.")
@@ -39,6 +34,10 @@ def generate_tone(
 
     # Convert message to binary
     binary_message = ''.join(format(ord(char), '08b') for char in message)
+
+    # Calculate the required duration
+    bits_per_second = 10  # Adjust as necessary for encoding speed
+    duration = len(binary_message) / bits_per_second
 
     # Calculate the number of samples
     total_samples = int(duration * sample_rate)
@@ -87,7 +86,7 @@ def read_tone(
 
     # Read the audio file
     signal, sr = sf.read(filename)
-    
+
     if sr != sample_rate:
         raise ValueError(f"Sample rate of file ({sr}) does not match the expected sample rate ({sample_rate}).")
 
@@ -98,7 +97,8 @@ def read_tone(
     t = np.linspace(0, duration, len(signal), endpoint=False)
 
     # Number of samples per bit
-    samples_per_bit = len(signal) // (len(signal) // sample_rate)
+    binary_message_length = len(signal) // (sample_rate // 10)  # Length of the binary message in bits per second
+    samples_per_bit = len(signal) // binary_message_length
 
     # Detect the binary message
     binary_message = ''
@@ -122,14 +122,13 @@ def read_tone(
     for i in range(0, len(binary_message), 8):
         byte = binary_message[i:i + 8]
         message += chr(int(byte, 2))
-    
+
     return message
 
 def main(
     mode: str = typer.Argument(..., help="Mode: 'encode' to embed a message, 'decode' to extract a message"),
     message: str = typer.Argument(None, help="The message to embed in the tone (required for 'encode' mode)"),
     filename: str = typer.Option('embedded_tone.wav', help="The name of the WAV file"),
-    duration: float = typer.Option(5.0, help="Duration of the tone in seconds (required for 'encode' mode)"),
     sample_rate: int = typer.Option(44100, help="Sampling rate of the audio signal"),
     f0: float = typer.Option(440.0, help="Frequency for binary '0'"),
     f1: float = typer.Option(880.0, help="Frequency for binary '1'")
@@ -137,7 +136,7 @@ def main(
     if mode == 'encode':
         if not message:
             raise ValueError("Message is required for 'encode' mode.")
-        generate_tone(message, filename, duration, sample_rate, f0, f1)
+        generate_tone(message, filename, sample_rate, f0, f1)
     elif mode == 'decode':
         extracted_message = read_tone(filename, sample_rate, f0, f1)
         print(f'Extracted message: {extracted_message}')
