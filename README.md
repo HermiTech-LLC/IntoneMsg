@@ -37,7 +37,7 @@ pip install numpy soundfile typer
 To embed a message into an audio file, run the following command:
 
 ```sh
-python main.py encode "Your message here" --filename "output.wav" --sample_rate 48000 --f0 500 --f1 1000
+python Tm.py encode "Your message here" --filename "output.wav" --sample-rate 48000 --f0 500 --f1 1000
 ```
 
 ### Decode a Message
@@ -45,14 +45,14 @@ python main.py encode "Your message here" --filename "output.wav" --sample_rate 
 To extract a message from an audio file, run the following command:
 
 ```sh
-python main.py decode --filename "output.wav" --sample_rate 48000 --f0 500 --f1 1000
+python Tm.py decode --filename "output.wav" --sample-rate 48000 --f0 500 --f1 1000
 ```
 
 ### Parameters
 
 - `message` (str): The message to embed in the tone (required for `encode` mode).
 - `--filename` (str, optional): The name of the WAV file. Default is 'embedded_tone.wav'.
-- `--sample_rate` (int, optional): Sampling rate of the audio signal. Default is 44100 Hz.
+- `--sample-rate` (int, optional): Sampling rate of the audio signal. Default is 44100 Hz.
 - `--f0` (float, optional): Frequency for binary '0'. Default is 440.0 Hz.
 - `--f1` (float, optional): Frequency for binary '1'. Default is 880.0 Hz.
 
@@ -61,13 +61,13 @@ python main.py decode --filename "output.wav" --sample_rate 48000 --f0 500 --f1 
 #### Encoding
 
 ```sh
-python main.py encode "Hello, World!" --filename "hello_world_tone.wav" --sample_rate 44100 --f0 440 --f1 880
+python Tm.py encode "Hello, World!" --filename "hello_world_tone.wav" --sample-rate 44100 --f0 440 --f1 880
 ```
 
 #### Decoding
 
 ```sh
-python main.py decode --filename "hello_world_tone.wav" --sample_rate 44100 --f0 440 --f1 880
+python Tm.py decode --filename "hello_world_tone.wav" --sample-rate 44100 --f0 440 --f1 880
 ```
 
 ## License
