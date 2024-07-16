@@ -2,7 +2,7 @@
 
 ## Overview
 
-Tone Embedder is a Python application that allows you to embed a message into an audio file using Frequency Shift Keying (FSK). This application generates a tone where the message is encoded in the sound frequencies, allowing for a form of audio steganography.
+IntoneMsg is a Python application that allows you to embed a message into an audio file using Frequency Shift Keying (FSK). This application generates a tone where the message is encoded in the sound frequencies, allowing for a form of audio steganography.
 
 ## Features
 
@@ -31,7 +31,7 @@ pip install numpy soundfile typer
 To embed a message into an audio file, run the following command:
 
 ```sh
-python tone_embedder.py "Your message here" --filename "output.wav" --duration 10 --sample_rate 48000 --f0 500 --f1 1000
+python Tm.py "Your message here" --filename "output.wav" --duration 10 --sample_rate 48000 --f0 500 --f1 1000
 ```
 
 ### Parameters
@@ -46,7 +46,7 @@ python tone_embedder.py "Your message here" --filename "output.wav" --duration 1
 ### Example
 
 ```sh
-python tone_embedder.py "Hello, World!" --filename "hello_world_tone.wav" --duration 5 --sample_rate 44100 --f0 440 --f1 880
+python Tm.py "Hello, World!" --filename "hello_world_tone.wav" --duration 5 --sample_rate 44100 --f0 440 --f1 880
 ```
 
 ## License
