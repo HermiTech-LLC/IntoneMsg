@@ -6,7 +6,14 @@ ___
 ## Overview
 
 IntoneMsg is a Python application that allows you to embed a message into an audio file using Frequency Shift Keying (FSK). This application generates a tone where the message is encoded in the sound frequencies, allowing for a form of audio steganography. Additionally, it provides functionality to decode the embedded message from the audio file.
+___
 
+<a href="https://www.youtube.com/watch?v=1DXG0TqCzvw&autoplay=1" target="_blank">
+  <img src="https://img.youtube.com/vi/1DXG0TqCzvw/maxresdefault.jpg" alt="Watch the video" style="width:100%; transition: transform 0.3s ease, opacity 0.3s ease;"
+    onmouseover="this.src='https://img.youtube.com/vi/1DXG0TqCzvw/hqdefault.jpg'; this.style.transform='scale(1.05)'; this.style.opacity='0.7';" 
+    onmouseout="this.src='https://img.youtube.com/vi/1DXG0TqCzvw/maxresdefault.jpg'; this.style.transform='scale(1)'; this.style.opacity='1';">
+</a>
+___
 ## Features
 
 - Encode any text message into an audio file
